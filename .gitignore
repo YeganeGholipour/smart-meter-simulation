@@ -1,0 +1,17 @@
+.history/
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+.env
+.venv
+env/
+venv/
+ENV/
+
+__pypackages__/
+*.py[cod]
