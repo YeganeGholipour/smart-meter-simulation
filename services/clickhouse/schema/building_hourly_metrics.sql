@@ -1,4 +1,4 @@
-CREATE TABLE building_hourly_metrics (
+CREATE TABLE building_hourly_power_consumption (
     building_id UInt32,          
     window_start DateTime
     window_end DateTime,

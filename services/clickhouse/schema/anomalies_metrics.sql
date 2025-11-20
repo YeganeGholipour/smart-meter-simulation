@@ -1,6 +1,6 @@
 --- Every 30s
 
-CREATE TABLE anomaly_detection_metrics (
+CREATE TABLE anomaly_detection_meter (
     window_start DateTime,
     window_end DateTime,
     meter_id UInt32,
@@ -46,7 +46,7 @@ ORDER BY (meter_id, window_start);
 
 
 
-CREATE TABLE anomalies_per_building_hourly (
+CREATE TABLE anomaly_count_hourly_per_building (
     window_start DateTime,
     window_end DateTime,
     building_id UInt32,

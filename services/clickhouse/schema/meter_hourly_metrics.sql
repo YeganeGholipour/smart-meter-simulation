@@ -1,4 +1,4 @@
-CREATE TABLE meter_hourly_metrics (
+CREATE TABLE meter_hourly_power_consumption (
     meter_id UInt32,
     building_id UInt32,          
     window_start DateTime
