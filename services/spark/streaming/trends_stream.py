@@ -4,8 +4,8 @@ from pyspark.sql.functions import window, col, avg, count
 
 def meter_minute_trend(df: SparkDataFrame) -> SparkDataFrame:
     dashboard = (
-        df.withWatermark("timestamp", "5 minutes")
-        .groupBy(window("timestamp", "1 minute"), col("meter_id"))
+        df.withWatermark("event_ts", "5 minutes")
+        .groupBy(window("event_ts", "1 minute"), col("meter_id"))
         .agg(
             avg("power_kw").alias("avg_power_min"),
             avg("voltage_v").alias("avg_voltage_min"),

@@ -4,8 +4,8 @@ from pyspark.sql.functions import window, col, max, min, avg, sum
 
 def meter_hourly_power_consumption(df: SparkDataFrame) -> SparkDataFrame:
     hourly_house_power_consumption = (
-        df.withWatermark("timestamp", "2 hour")
-        .groupBy("meter_id", window("timestamp", "1 hour"))
+        df.withWatermark("event_ts", "2 hour")
+        .groupBy("meter_id", window("event_ts", "1 hour"))
         .agg(
             avg("power_kw").alias("avg_power"),
             max("power_kw").alias("max_power"),

@@ -1,13 +1,13 @@
 from pyspark.sql import DataFrame as SparkDataFrame
-from pyspark.sql.functions import getbit, col, lit, window, avg, expr, stddev, when
+from pyspark.sql.functions import getbit, col, lit, window, avg, expr, stddev, when, min, max, sum
 
 from services.spark.common.utils import status_processing
 
 
 def anomaly_detection_meter(df: SparkDataFrame) -> SparkDataFrame:
     anomaly = (
-        df.withWatermark("timestamp", "1 minute")
-        .groupBy(window("timestamp", "30 seconds"), col("meter_id"))
+        df.withWatermark("event_ts", "1 minute")
+        .groupBy(window("event_ts", "30 seconds"), col("meter_id"))
         .agg(
             avg("power_kw").alias("avg_power"),
             max("power_kw").alias("max_power"),
@@ -26,8 +26,8 @@ def anomaly_detection_meter(df: SparkDataFrame) -> SparkDataFrame:
 
 def anomaly_prediction_features(df: SparkDataFrame) -> SparkDataFrame:
     prediction = (
-        df.withWatermark("timestamp", "10 minutes")
-        .groupBy(window("timestamp", "5 minutes"), col("meter_id"))
+        df.withWatermark("event_ts", "10 minutes")
+        .groupBy(window("event_ts", "5 minutes"), col("meter_id"))
         .agg(
             avg("power_kw").alias("power_5m_avg"),
             stddev("power_kw").alias("power_5m_std"),
@@ -47,8 +47,8 @@ def anomaly_prediction_features(df: SparkDataFrame) -> SparkDataFrame:
 
 def anomaly_count_hourly_per_building(df: SparkDataFrame) -> SparkDataFrame:
     anomaly_count_building = (
-        df.withWatermark("timestamp", "2 hour")
-        .groupBy(window("timestamp", "1 hour"), col("building_id"))
+        df.withWatermark("event_ts", "2 hour")
+        .groupBy(window("event_ts", "1 hour"), col("building_id"))
         .agg(
             expr("bit_or(status)").alias("window_status"),
         )
