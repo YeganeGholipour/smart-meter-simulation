@@ -392,11 +392,24 @@ services:
       - clickhouse-server
       - spark-master
       - spark-worker
+  
+  grafana:
+    image: grafana/grafana:12.3.0
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_INSTALL_PLUGINS: grafana-clickhouse-datasource
+    depends_on:
+      - clickhouse-server
+    volumes:
+      - grafana-storage:/var/lib/grafana
 
 volumes:
   postgres-db-volume:
   ch_data:
   ch_logs:
+  grafana-storage:
 
 networks:
   spark-net:
