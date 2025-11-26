@@ -46,7 +46,12 @@ def produce_event():
 
 if __name__ == "__main__":
     print("Running data generation ...")
-    produce_event()
+    try:
+        produce_event()
+    except Exception as e:
+        import traceback
+        print("Error in data generation:", e)
+        traceback.print_exc()
 
 # TODO: 
 # Use asyncio / threading
