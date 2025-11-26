@@ -7,4 +7,4 @@ class MeterEvent(BaseModel):
     timestamp: datetime
     power_kw: float
     voltage_v: float
-    status: conint(ge=0, le=4)  
+    status: conint(ge=0, le=15)  
