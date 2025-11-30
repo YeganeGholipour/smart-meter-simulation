@@ -46,7 +46,6 @@ def parse_raw_df(df: SparkDataFrame) -> SparkDataFrame:
             col("data.voltage_v"),
             col("data.status"),
         )
-        .filter((col("status") >= 0) & (col("status") <= 4))
     )
 
     parsed = parsed.withColumn("event_ts", date_trunc("second", col("event_ts")))

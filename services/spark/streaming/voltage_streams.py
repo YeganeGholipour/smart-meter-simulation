@@ -4,7 +4,7 @@ from pyspark.sql.functions import col, window, avg, max, min, sum
 
 def meter_hourly_voltage_monitoring(df: SparkDataFrame) -> SparkDataFrame:
     hourly_house_voltage = house_agg = (
-        df.withWatermark("event_ts", "2 hour")
+        df.withWatermark("event_ts", "15 minutes")
         .groupBy("meter_id", window("event_ts", "1 hour"))
         .agg(
             avg("voltage_v").alias("avg_voltage"),

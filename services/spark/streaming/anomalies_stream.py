@@ -47,7 +47,7 @@ def anomaly_prediction_features(df: SparkDataFrame) -> SparkDataFrame:
 
 def anomaly_count_hourly_per_building(df: SparkDataFrame) -> SparkDataFrame:
     anomaly_count_building = (
-        df.withWatermark("event_ts", "2 hour")
+        df.withWatermark("event_ts", "15 minutes")
         .groupBy(window("event_ts", "1 hour"), col("building_id"))
         .agg(
             expr("bit_or(status)").alias("window_status"),
