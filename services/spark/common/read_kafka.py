@@ -16,6 +16,7 @@ def read_from_kafka(
         spark.readStream.format("kafka")
         .option("kafka.bootstrap.servers", broker)
         .option("subscribe", topic)
+        .option("startingOffsets", "earliest")
         .load()
     )
 

@@ -393,6 +393,21 @@ services:
       - spark-master
       - spark-worker
   
+
+  anomaly-prediction:
+    container_name: anomaly-prediction
+    build:
+      context: .
+      dockerfile: ./services/anomaly_prediction/Dockerfile
+    env_file:
+      - ./services/anomaly_prediction/.env
+    depends_on:
+      - kafka
+      - clickhouse-server
+      - spark-master
+      - spark-worker
+  
+      
   grafana:
     image: grafana/grafana:12.3.0
     container_name: grafana
