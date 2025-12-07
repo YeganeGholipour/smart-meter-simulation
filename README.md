@@ -191,8 +191,7 @@ GF_INSTALL_PLUGINS: grafana-clickhouse-datasource
 - Voltage Trend Per Meter
 - Voltage Monitoring Per Meter Per Hour
 
-![[Screenshot from 2025-11-25 11-44-21.png]]
-
+![alt text](documentation/Screenshot from 2025-11-25 11-44-21.png)
 
 ###### What I did:
 
